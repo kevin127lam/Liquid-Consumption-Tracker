@@ -6,12 +6,35 @@
 const char SSID[]     = SECRET_SSID;    // Network SSID (name)
 const char PASS[]     = SECRET_OPTIONAL_PASS;    // Network password (use for WPA, or use as key for WEP)
 
+void onConsumptionGoalChange();
+void onGoalPercentChange();
+void onVolumeChange();
+void onGoalReachedChange();
+void onHalfGoalChange();
+void onQuarterGoalChange();
+void onThreeQGoalChange();
 
+float amountConsumed;
+float consumptionGoal;
 float distance;
+float goalPercent;
+float volume;
+bool goalReached;
+bool halfGoal;
+bool quarterGoal;
+bool threeQGoal;
 
 void initProperties(){
 
-  ArduinoCloud.addProperty(distance, READ, ON_CHANGE, NULL);
+  ArduinoCloud.addProperty(amountConsumed, READ, ON_CHANGE, NULL, 1);
+  ArduinoCloud.addProperty(consumptionGoal, READWRITE, 30 * SECONDS, onConsumptionGoalChange);
+  ArduinoCloud.addProperty(distance, READ, ON_CHANGE, NULL, 1);
+  ArduinoCloud.addProperty(goalPercent, READWRITE, ON_CHANGE, onGoalPercentChange);
+  ArduinoCloud.addProperty(volume, READWRITE, ON_CHANGE, onVolumeChange);
+  ArduinoCloud.addProperty(goalReached, READWRITE, ON_CHANGE, onGoalReachedChange);
+  ArduinoCloud.addProperty(halfGoal, READWRITE, ON_CHANGE, onHalfGoalChange);
+  ArduinoCloud.addProperty(quarterGoal, READWRITE, ON_CHANGE, onQuarterGoalChange);
+  ArduinoCloud.addProperty(threeQGoal, READWRITE, ON_CHANGE, onThreeQGoalChange);
 
 
 
